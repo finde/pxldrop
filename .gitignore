@@ -38,8 +38,6 @@ testem.log
 .DS_Store
 Thumbs.db
 
-.nx/cache
-
 # yarn2
 .pnp.*
 .yarn/*
@@ -50,3 +48,4 @@ Thumbs.db
 !.yarn/versions
 
 .local
+.nx/cache
