@@ -58,6 +58,7 @@
     "@nestjs/core": "^10.0.2",
     "@nestjs/platform-express": "^10.0.2",
     "@nestjs/serve-static": "^4.0.2",
+    "@types/canvas-confetti": "^1.6.4",
     "axios": "^1.6.8",
     "canvas-confetti": "^1.9.3",
     "nestjs-googledrive-upload": "^2.0.0",

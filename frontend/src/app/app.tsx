@@ -28,13 +28,13 @@ export function App() {
 
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const handleSubmit = async () => {
-    const formData = createFormData();
-    setCardState(CardState.Uploading);
+  useEffect(() => {
+    const handleSubmit = async () => {
+      const formData = createFormData();
+      setCardState(CardState.Uploading);
 
-    try {
-      axios
-        .post('/api/upload', formData, {
+      try {
+        await axios.post('/api/upload', formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
           },
@@ -44,39 +44,31 @@ export function App() {
 
             setUploadProgress(Math.min(percent, 100));
           },
-        })
-        .then((response) => {
-          // on success
-          confetti({
-            particleCount: 100,
-            spread: 70,
-            origin: { y: 0.6 }
-          });
-          setCardState(CardState.Done);
-          clearAllFiles();
-        })
-        .catch((error) => {
-          // on error
-          setCardState(CardState.Error);
-          clearAllFiles();
         });
-    } catch (error) {
-      console.error('Failed to submit files.');
-    }
-  };
 
-  useEffect(() => {
+        // on success
+        confetti({
+          particleCount: 100,
+          spread: 70,
+          origin: { y: 0.6 },
+        });
+        setCardState(CardState.Done);
+        clearAllFiles();
+
+      } catch (error) {
+        console.error('Failed to submit files.', error);
+        setCardState(CardState.Error);
+        clearAllFiles();
+      }
+    };
+
     setFileNumber(files.length);
 
     if (files.length > 0) {
       handleSubmit();
       setCardState(CardState.Uploading);
     }
-  }, [files]);
-
-  useEffect(() => {
-    console.log('cardState:', cardState);
-  }, [cardState]);
+  }, [clearAllFiles, createFormData, files]);
 
   return (
     <>
@@ -92,10 +84,10 @@ export function App() {
           if (cardState === CardState.Default) {
             setFiles(e as any);
             setCardState(CardState.Uploading);
-          }        
+          }
 
           if (inputRef.current) {
-            inputRef.current.value = null;
+            inputRef.current.value = '';
           }
         }}
       />
@@ -119,11 +111,11 @@ export function App() {
               }
               break;
 
-            case CardState.Done: 
+            case CardState.Done:
               setCardState(CardState.Default);
               break;
 
-            case CardState.Error: 
+            case CardState.Error:
               setCardState(CardState.Default);
               break;
           }

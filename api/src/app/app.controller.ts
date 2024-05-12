@@ -26,7 +26,6 @@ export class AppController {
   @UseInterceptors(AnyFilesInterceptor())
   @Post('upload')
   async uploadFile(
-    // @Body() body: SampleDto,
     @UploadedFiles() files: Array<Express.Multer.File>
   ) {
     try {
@@ -36,7 +35,6 @@ export class AppController {
 
       return {
         status: 'success',
-        // file: file.buffer.toString(),
       };
     } catch (e) {
       return {
