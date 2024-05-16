@@ -17,7 +17,7 @@ interface Props {
 export function UploadCard(props: Readonly<Props>) {
   const Content: Record<CardState, ReactNode> = {
     [CardState.Default]: (
-      <div style={{marginTop: '-30px'}}>
+      <div style={{ marginTop: '-30px' }}>
         <p>Share your unforgettable moments with us!</p>
         <p>Love,</p>
         <p className="signature">
@@ -61,13 +61,17 @@ export function UploadCard(props: Readonly<Props>) {
         <div className={styles['badge-wrapper']}>
           <HeartIcon />
 
-          <div className={styles['badge-bottom']}>
-            <ArrowUpIcon />
-          </div>
-
-          {props.cardState === CardState.Uploading && props.fileNumber !== undefined && props.fileNumber > 0 && (
-            <div className={styles['badge-top']}>{props.fileNumber}</div>
+          {props.cardState === CardState.Uploading && (
+            <div className={styles['badge-bottom']}>
+              <ArrowUpIcon />
+            </div>
           )}
+
+          {props.cardState === CardState.Uploading &&
+            props.fileNumber !== undefined &&
+            props.fileNumber > 0 && (
+              <div className={styles['badge-top']}>{props.fileNumber}</div>
+            )}
         </div>
       </div>
     </div>
