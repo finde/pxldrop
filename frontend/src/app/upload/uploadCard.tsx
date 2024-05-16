@@ -38,7 +38,7 @@ export function UploadCard(props: Readonly<Props>) {
     [CardState.Done]: (
       <div>
         <p>Upload successful!</p>
-        <p>Cheers,</p>
+        <p>Thank you,</p>
         <p className="signature">
           <Signature />
         </p>
